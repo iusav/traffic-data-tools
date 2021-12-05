@@ -1,0 +1,6 @@
+
+# license_tags/
+license_tags/scripts/__pycache__/
+license_tags/scripts/analysis/__pycache__/
+license_tags/scripts/preprocessing/__pycache__/
+license_tags/scripts/util/__pycache__/
