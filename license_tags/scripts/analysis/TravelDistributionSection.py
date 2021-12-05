@@ -60,8 +60,8 @@ class TravelDistributionController:
 
         self.plot.setYLabel(diagram_mode.plotTitle())
         self.plot.updateHover(diagram_mode.format())
-        self.plot.setXResetAxisRange(self.time_slices[0].astype(long) / 1000,
-                                     self.time_slices[-1].astype(long) / 1000)
+        self.plot.setXResetAxisRange(self.time_slices[0].astype('float') / 1000,
+                                     self.time_slices[-1].astype('float') / 1000)
         self.plot.setYResetAxisRange(0, diagram_mode.maxY())
         
         self.plot.updateBarWidths(self.time_slices[1] - self.time_slices[0])
@@ -139,7 +139,7 @@ class TravelDistributionPlot(Plot):
 class TravelDistributionWidgets:
 
     def __init__(self, diagram_method_names):
-        self.diagram_mode_select = Select(title=travel_distribution_mode_selection_names, options=diagram_method_names, value=travel_distribution_mode_absolute, width=330)
+        self.diagram_mode_select = Select(title=travel_distribution_mode_selection_names, options=list(diagram_method_names), value=travel_distribution_mode_absolute, width=330)
         
         self.layout = layout([
             self.diagram_mode_select,

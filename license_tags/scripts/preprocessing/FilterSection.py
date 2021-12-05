@@ -4,7 +4,7 @@ from scripts.Colors import *
 from scripts.Strings import *
 from scripts.Plot import Plot
 
-from bokeh.models import Select, Slider, CheckboxGroup, RadioGroup, Button, Spacer, ColumnDataSource, CustomJS, Dropdown, HoverTool
+from bokeh.models import Select, Slider, CheckboxGroup, RadioGroup, Button, Spacer, ColumnDataSource, CustomJS, Dropdown, HoverTool  
 from bokeh.layouts import row, layout, column
 from pandas import DataFrame
 import numpy as np
@@ -14,7 +14,7 @@ from os.path import join, dirname
 
 class FilterController:
 
-    def __init__(self, raw_data, track_names, max_track_names):
+    def __init__(self, raw_data, track_names, max_track_names):        
         self.raw_data_source = ColumnDataSource(data={key : raw_data[key] for key in raw_data.keys()})
         routes_dict = {'car':[], 'departure':[], 'arrival':[], 'duration':[], 'section_name_start':[], 'section_name_end':[], 'track_name_start':[], 'track_name_end':[], 'outlier':[]}
         self.routes_source = ColumnDataSource(routes_dict)
@@ -52,7 +52,7 @@ class FilterController:
         connection_names = self.configurations.keys()
         outlier_method_names = self.outlier_filter_methods.keys()
         download_values = [(download_raw_data_name, 'raw_data'), (download_all_routes_name, 'all_routes'), (download_filtered_routes_name, 'filtered_routes')]
-
+        
         self.widgets = FilterWidgets(max_track_names, connection_names, outlier_method_names, download_values)
         self.plot = TravelTimePlot()
         self.layout = row(self.widgets.layout, self.plot.plot)
@@ -85,9 +85,9 @@ class FilterController:
 
         self.updating = True
         self.widgets.start_track_boxes.labels = self.track_names[start_name]
-        self.widgets.start_track_boxes.active = configuration.start_selection
+        self.widgets.start_track_boxes.active = list(configuration.start_selection)    
         self.widgets.end_track_boxes.labels = self.track_names[end_name]
-        self.widgets.end_track_boxes.active = configuration.end_selection
+        self.widgets.end_track_boxes.active = list(configuration.end_selection) 
         self.widgets.outlier_window_slider.value = configuration.outlier_window
         self.widgets.outlier_factor_slider.value = configuration.outlier_factor
         self.widgets.outlier_method_select.value = configuration.outlier_filter_method_name
@@ -192,10 +192,10 @@ class FilterController:
         self.widgets.quantile_slider.on_change('value', lambda attr, old, new: self.updateLines())
 
         self.widgets.reset_zoom_button.on_click(self.resetZoom)
-        self.widgets.download_dropdown.callback = CustomJS(args=dict(raw_data_source=self.raw_data_source, routes_source=self.routes_source),
+        self.widgets.download_dropdown.callback = CustomJS(args=dict(raw_data_source=self.raw_data_source),
                                                            code=open(join(dirname(dirname(dirname(__file__))), "models/preprocessing_download.js")).read())
         
-        self.widgets.connection_selection.value = self.configurations.keys()[0]
+        self.widgets.connection_selection.value = list(self.configurations.keys())[0]
         self.resetZoom()
 
         
@@ -240,6 +240,7 @@ class FilterWidgets:
 
     def __init__(self, max_track_names, connection_names, outlier_method_names, download_values):
         self.download_dropdown = Dropdown(label=download_name, button_type="success", menu=download_values, width=290)
+        connection_names = list(connection_names)
         
         self.connection_selection = Select(options=connection_names, width=300)
         
@@ -248,6 +249,7 @@ class FilterWidgets:
 
         self.base_radio_group = RadioGroup(labels=[start_based_option_name, end_based_option_name], inline=True, active=0)
 
+        outlier_method_names = list(outlier_method_names)
         self.outlier_method_select = Select(title=outlier_filter_method_selection_name, options=outlier_method_names, value=outlier_filter_method_iqr, width=300)
         self.outlier_window_slider = Slider(start=5, end=60, step=5, value=5, width=140, title=outlier_filter_window_selection_name)
         self.outlier_factor_slider = Slider(start=1.1, end=5, step=0.1, width=130, title=outlier_filter_factor_selection_name)

@@ -11,8 +11,17 @@ from pandas import DataFrame
 
 def read(name):
     cols = [1, 2, 3, 4]
-    names = ['car', 'date', 'daytime', 'certainty']
-    data = pd.read_csv(name, header=None, names=names, skiprows=1, sep=';', usecols=cols)
+    names = ['car', 'date', 'daytime', 'certainty']  
+    pd_data = {names[0]:[], names[1]:[], names[2]:[], names[3]:[]}        
+    
+    with open(name, "rb") as file1:
+        for line in file1:
+            line = str(line.strip()).split(';')
+            if len(line)==1:
+                continue
+            for i in range(len(names)):
+                pd_data[names[i]].append(line[i+1])
+    data = pd.DataFrame(pd_data)
     
     format = "%d.%m.%Y %H:%M:%S"
     data['time'] = pd.to_datetime(data.date + ' ' + data.daytime, format=format)
@@ -20,7 +29,6 @@ def read(name):
     data = data.drop(['date', 'daytime'], 1)
     data = data.dropna()
     data.sort_values(by='time', inplace=True)
-
     return data
 
 

@@ -1,6 +1,6 @@
 from scripts.util.Tracks import *
-from TravelTimeSection import TravelTimeController
-from TravelDistributionSection import TravelDistributionController
+from .TravelTimeSection import TravelTimeController
+from .TravelDistributionSection import TravelDistributionController
 from scripts.Strings import * 
 
 from bokeh.layouts import layout, row, widgetbox, column
@@ -77,10 +77,10 @@ class AnalysisController:
         for i in range(len(self.connection_selectors)):
             select = self.widgets.connection_selections[i]
             selection = select.value
-            options = self.connection_selectors[i].options(connections)
+            options = list(self.connection_selectors[i].options(connections))
             intersection = list(set(selection) & set(options))
 
-            select.options = options
+            select.options = options    
             select.value = intersection if len(intersection) else [options[0]]
         self.updating = False
 

@@ -51,7 +51,7 @@ def readFolder(directory):
             track_name = os.path.splitext(file)[0]
             data['track_name'] = track_name
             raw_data.append(data)
-
+            
     return concat(raw_data)
 
 

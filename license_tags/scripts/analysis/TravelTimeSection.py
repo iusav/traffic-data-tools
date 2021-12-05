@@ -52,8 +52,8 @@ class TravelTimeController:
         self.plot.setYResetAxisRange(min([lines[connection + TravelTimeController.column_name_suffixes[0]].min() for connection in active_connections]),
                                      max([lines[connection + TravelTimeController.column_name_suffixes[2]].max() for connection in active_connections]))
 
-        self.plot.setXResetAxisRange(self.centric_time_slices[0].astype(long) / 1000,
-                                     self.centric_time_slices[-1].astype(long) / 1000)
+        self.plot.setXResetAxisRange(self.centric_time_slices[0].astype('float') / 1000,
+                                     self.centric_time_slices[-1].astype('float') / 1000)
         self.plot.updateLines(lines)
         
     def createListeners(self):

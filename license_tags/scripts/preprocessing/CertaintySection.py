@@ -27,7 +27,7 @@ class CertaintyController:
         
         section_name = self.widgets.section_selection.value
         self.widgets.track_boxes.labels = self.track_names[section_name]
-        self.widgets.track_boxes.active = range(len(self.track_names[section_name]))
+        self.widgets.track_boxes.active = list(range(len(self.track_names[section_name])))
         self.updating = False
         self.updateCertainty()
             
@@ -58,7 +58,7 @@ class CertaintyController:
         self.widgets.section_selection.on_change('value', lambda attr, old, new: self.applySection())
         self.widgets.track_boxes.on_click(lambda selection: self.updateCertainty())
         self.widgets.group_window_slider.on_change('value', lambda attr, old, new: self.updateLines())
-        self.widgets.section_selection.value = self.track_names.keys()[0]
+        self.widgets.section_selection.value = list(self.track_names.keys())[0]
         self.widgets.track_boxes.active = []
 
 
@@ -93,7 +93,7 @@ class CertaintyPlot(Plot):
 class CertaintyWidgets:
 
     def __init__(self, max_track_names, section_names):
-        self.section_selection = Select(options=section_names, width=300)
+        self.section_selection = Select(options=list(section_names), width=300)
         self.track_boxes = CheckboxGroup(width=150, active=[])
 
         self.group_window_slider = Slider(start=5, end=60, step=5, value=10, title=group_window_selection_name)
