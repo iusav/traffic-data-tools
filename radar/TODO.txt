@@ -1,0 +1,10 @@
+Fahrzeugklassen:
+	Länge nach Klasse
+
+Fahrzeug pro Stunde
+	pro Klasse
+
+je  filter: Klase
+Geschwindigkeit über Zeit
+
+Geschwindigkeit über Verkehrsstärke
