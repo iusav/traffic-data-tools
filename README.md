@@ -17,6 +17,15 @@ You can use `pip install -r requirements.txt` to install all packages you need f
 
 ## *license_tags* 
 #### Python Script
-You first need to run `license_tags/python main.py`  
+You first need to run `python main.py` in traffic-data-tools/license_tags
 or
-`license_tags/bokeh serve --show main.py` 
+`bokeh serve --show main.py` 
+
+![](license_tags/example_data/lic_tags_tool.png)
+
+
+## *Radar* 
+#### Python Script
+You first need to run `python Main.py` in traffic-data-tools/radar/src
+or
+`bokeh serve --show Main.py` 

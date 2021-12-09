@@ -11,22 +11,23 @@ import itertools
 from Tracks import read, group
 from Plots import Plot
 
-from thread import start_new_thread
+from _thread import start_new_thread
 
 
 def main():
     # input = '//ifv-fs.ifv.kit.edu/User/HiWi/Alexander.Gellner/traffic-data-tools/license tags/data'
-    input = 'D:\\Studium\\HiWi\\traffic-data-tools\\radar\\data'
+    #input = 'D:\\Studium\\HiWi\\traffic-data-tools\\radar\\data'
+    input = '../data'
     
     for name in 'kelter_weg_neu', 'lindenplatz_ost_neu', 'lindenplatz_west_neu', 'lommatzscher_str_west_neu', 'stuttgarter_str_neu', 'welzheimer_str_nord_neu', 'welzheimer_str_sued_neu':
         print('reading input...')
-        track = read(input + '\\' + name + '.txt')
+        track = read(input + '/' + name + '.txt')
         result = group(track, 50)
-        # print(track)
+        #print(track)
     
         print('evaluating input...')
         start_new_thread(evaluate, (track, result, name,))
-    c = raw_input("Press ENTER to exit.")
+    #c = raw_input("Press ENTER to exit.")
     # evaluate(track, result)
 
     

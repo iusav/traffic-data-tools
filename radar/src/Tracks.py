@@ -16,7 +16,7 @@ def read(name):
     format = "%Y-%m-%d %H:%M:%S"
     data['time'] = pd.to_datetime(data.date + ' ' + data.daytime, format=format)
     data['length'] *= 10
-    data = data.drop(['date', 'daytime'], 1)
+    data = data.drop(['date', 'daytime'], axis=1)
     data = data.dropna()
     data = data[data['length'] > 0]
     data.sort_values(by='time', inplace=True)

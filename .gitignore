@@ -4,3 +4,6 @@ license_tags/scripts/__pycache__/
 license_tags/scripts/analysis/__pycache__/
 license_tags/scripts/preprocessing/__pycache__/
 license_tags/scripts/util/__pycache__/
+
+# radar/
+radar/src/__pycache__/
